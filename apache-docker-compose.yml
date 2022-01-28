@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  apache:
+    image: httpd:latest
+    container_name: apache
+    hostname: apache
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apache.entrypoints=web"
+      - "traefik.http.routers.apache.rule=Host(`apache.$MY_DOMAIN`)"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

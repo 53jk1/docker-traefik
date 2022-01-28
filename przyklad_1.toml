@@ -1,0 +1,10 @@
+# Definicja portow dla poszczegolnych endpointow
+[ entryPoints ]
+[ entryPoints . web ]
+	address = ":8000"
+[ entryPoints . traefik ]
+	address = ":8001"
+# Wlaczenie wbudowanej aplikacji do zarzadzania
+[ api ]
+	insecure = true
+	dashboard = true

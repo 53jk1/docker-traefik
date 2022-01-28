@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    hostname: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.entrypoints=web"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.$MY_DOMAIN`)"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK
+
+volumes:
+  portainer_data:

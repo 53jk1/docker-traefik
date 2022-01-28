@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: "traefik:v2.1"
+    container_name: "traefik"
+    hostname: "traefik"
+    ports:
+      - "82:82"
+      - "8082:8082"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/traefik.yml:ro"
+
+networks:
+  default:
+    external:
+      name: $DEFAULT_NETWORK

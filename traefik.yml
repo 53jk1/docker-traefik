@@ -1,0 +1,34 @@
+## STATIC CONFIGURATION
+log:
+  level: INFO
+
+api:
+  insecure: true
+  dashboard: true
+
+entryPoints:
+  web:
+    address: ":82"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+  file:
+    filename: "traefik.yml"
+
+## DYNAMIC CONFIGURATION
+http:
+  routers:
+    route-to-local-ip:
+      rule: "Host(`test.example.com`)"
+      service: route-to-local-ip-service
+      priority: 1000
+      entryPoints:
+        - web
+
+  services:
+    route-to-local-ip-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.0.19.5:82"
